@@ -18,9 +18,9 @@ function App() {
     }
   );
 
-  const filteredCoins = data?.filter((d) =>
-    d.name.toLowerCase().includes(search.toLowerCase())
-  );
+  const result = search
+    ? data?.filter((d) => d.name.toLowerCase().includes(search.toLowerCase()))
+    : data;
 
   return (
     <div className='App'>
@@ -46,13 +46,9 @@ function App() {
               </tr>
             </thead>
             <tbody>
-              {search
-                ? filteredCoins.map((f) => {
-                    return <Coins coin={f} key={f.name} />;
-                  })
-                : data.map((coin) => {
-                    return <Coins coin={coin} key={coin.name} />;
-                  })}
+              {result.map((coin) => {
+                return <Coins coin={coin} key={coin.name} />;
+              })}
             </tbody>
           </table>
           <Paginate page={page} setPage={setPage} />
